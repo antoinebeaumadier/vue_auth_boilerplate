@@ -20,7 +20,9 @@ app.use(express.json());
 
 // Routes
 const authRoutes = require('./routes/auth');
+const stripeRoutes = require('./routes/stripe');
 app.use('/api/auth', authRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 // Apply CSRF protection to all routes except GET
 app.use((req, res, next) => {

@@ -39,3 +39,41 @@ model RefreshToken {
 
   @@map("refresh_tokens")
 }
+
+model Payment {
+  id              String   @id @default(cuid())
+  stripePaymentId String   @unique
+  amount          Int
+  currency        String
+  status          String
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Refund {
+  id            String   @id @default(cuid())
+  stripeRefundId String  @unique
+  paymentId     String
+  amount        Int
+  currency      String
+  reason        String?
+  createdAt     DateTime @default(now())
+}
+
+model Subscription {
+  id                  String   @id @default(cuid())
+  stripeSubscriptionId String  @unique
+  customerId          String
+  status              String
+  currentPeriodEnd    DateTime
+  metadata            Json?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model WebhookEvent {
+  id            String   @id @default(cuid())
+  stripeEventId String   @unique
+  createdAt     DateTime @default(now())
+}
